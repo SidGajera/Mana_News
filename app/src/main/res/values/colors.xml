@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+
+    <color name="gray">#333333</color>
+    <color name="lightgray">#8D333333</color>
+    <color name="darkDray">#191919</color>
+    <color name="grayCat">#A98F8585</color>
+    <color name="desc_back">#222222</color>
+    <color name="category">#A3000000</color>
+
+    <color name="red">#F44336</color>
+    <color name="yellow">#FEC20C</color>
+    <color name="blue">#87CEEB</color>
+
+    <color name="menu_header">#2D2D2D</color>
+    <color name="menu_bg">#1F2020</color>
+    <color name="search_bg">#B9A302</color>
+    <color name="search_grey">#CACACA</color>
+    <color name="page_bg">#FF222222</color>
+    <color name="color_gray">#7F7F7F</color>
+
+<!--    light theme color-->
+
+    <color name="header">#F5F5F5</color>
+    <color name="pagecolor">#FEFEFE</color>
+    <color name="footercolor">#FBFCFB</color>
+    <color name="background">#222222</color>
+
+
+</resources>

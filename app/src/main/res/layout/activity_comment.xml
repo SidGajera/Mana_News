@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/linMain"
+    android:background="@color/darkDray"
+    tools:context=".Activity.CommentActivity">
+
+    <RelativeLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/linTop"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/yellow">
+
+                <ImageView
+                    android:id="@+id/imgClose"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_baseline_close_24"
+                    android:backgroundTint="@color/darkDray" />
+
+                <TextView
+                    android:id="@+id/txtComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="Comments"
+                    android:fontFamily="@font/cerebrisans_medium"
+                    android:textColor="@color/darkDray"
+                    android:textSize="@dimen/text_font_main_title" />
+
+                <Button
+                    android:id="@+id/btnAddComment"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/ic_add_comment"
+                    android:backgroundTint="@color/darkDray" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtNoData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="No comments yet"
+            android:textSize="@dimen/text_font_news_desc"
+            android:visibility="gone"
+            android:textColor="@color/white" />
+
+        <ProgressBar
+            android:id="@+id/pb"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:indeterminateTint="@color/yellow" />
+
+        <ProgressBar
+            android:id="@+id/pb2"
+            android:layout_width="50dp"
+            android:visibility="gone"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:indeterminateTint="@color/darkDray" />
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:indeterminateTint="@color/yellow"
+        android:layout_gravity="center"
+        android:id="@+id/pbLoadMore1"
+        android:layout_width="30dp"
+        android:visibility="gone"
+        android:layout_margin="5dp"
+        android:layout_height="30dp"/>
+
+    <ProgressBar
+        android:indeterminateTint="@color/darkDray"
+        android:layout_gravity="center"
+        android:id="@+id/pbLoadMore2"
+        android:visibility="gone"
+        android:layout_width="30dp"
+        android:layout_margin="5dp"
+        android:layout_height="30dp"/>
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        android:layout_gravity="bottom"
+        ads:adUnitId="@string/banner_id"/>
+
+</LinearLayout>

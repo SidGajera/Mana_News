@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkDray"
+    android:orientation="vertical"
+    tools:context="com.mananews.apandts.Activity.Privacy_Policy">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/adView">
+
+        <RelativeLayout
+            android:id="@+id/lay_header"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/yellow">
+
+            <TextView
+                android:id="@+id/tx_privacy"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/cerebrisans_medium"
+                android:gravity="end|center_vertical"
+                android:text="Privacy Policy"
+                android:textAlignment="center"
+                android:textColor="@color/darkDray"
+                android:textSize="@dimen/text_font_main_title" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/relay_privacy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/lay_header">
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:indeterminateTint="@color/yellow"
+                android:visibility="gone" />
+
+            <ProgressBar
+                android:id="@+id/progress2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:indeterminateTint="@color/darkDray"
+                android:visibility="gone" />
+
+            <ScrollView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:fillViewport="true">
+
+                <TextView
+                    android:id="@+id/tx_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/cerebrisans_regular"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </ScrollView>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_id" />
+
+</RelativeLayout>

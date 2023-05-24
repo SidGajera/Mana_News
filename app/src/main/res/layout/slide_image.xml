@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_onboard_img_1" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top">
+
+            <TextView
+                android:id="@+id/tx_slide_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tx_slide_heading"
+                android:gravity="center"
+                android:fontFamily="@font/cerebrisan_light"
+                android:text="This is first page"
+                android:layout_margin="7dp"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tx_slide_heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="My Title"
+                android:layout_margin="7dp"
+                android:fontFamily="@font/cerebrisans_medium"
+                android:textColor="@color/yellow"
+                android:textSize="23sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

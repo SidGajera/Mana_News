@@ -1,0 +1,27 @@
+<resources>
+    <!-- 字体大小 -->
+    <dimen name="text_font_splash_title">19sp</dimen>
+    <dimen name="text_font_splash_subtitle">14sp</dimen>
+    <dimen name="text_font_main_title">17sp</dimen>
+    <dimen name="text_font_news_title">15.5sp</dimen>
+    <dimen name="text_font_news_desc">14.5sp</dimen>
+
+    <!-- 边距设置 -->
+    <dimen name="left_margin">20dp</dimen>
+    <dimen name="right_margin">20dp</dimen>
+    <dimen name="top_margin">20dp</dimen>
+    <dimen name="bottom_margin">40dp</dimen>
+    <dimen name="left_padding">8dp</dimen>
+    <dimen name="normal_padding">8dp</dimen>
+    <dimen name="left_margin_big">10dp</dimen>
+    <dimen name="left_margin_normal">8dp</dimen>
+    <dimen name="right_margin_big">10dp</dimen>
+    <dimen name="right_margin_normal">8dp</dimen>
+    <dimen name="top_margin_big">10dp</dimen>
+    <dimen name="top_margin_normal">8dp</dimen>
+    <dimen name="bottom_margin_big">10dp</dimen>
+    <dimen name="bottom_margin_normal">8dp</dimen>
+
+    <!-- cardview阴影-->
+    <dimen name="card_elevation">10dp</dimen>
+</resources>

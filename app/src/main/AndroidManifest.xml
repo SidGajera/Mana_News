@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.mananews.apandts">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS"
+        tools:node="remove" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <application
+        android:icon="@drawable/app_icon"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/app_icon"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        tools:targetApi="m">
+        <activity
+            android:name="com.mananews.apandts.Activity.ReporterActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+        <activity android:name="com.mananews.apandts.Activity.IntroActivity" />
+        <activity android:name="com.mananews.apandts.Activity.ProfileActivity" />
+        <activity android:name="com.mananews.apandts.Activity.UserRegistrationActivity" />
+        <activity android:name="com.mananews.apandts.Activity.LoginActivity" />
+        <activity android:name="com.mananews.apandts.Activity.CommentActivity" />
+        <activity android:name="com.mananews.apandts.Activity.ReferenceActivity" />
+        <activity android:name="com.mananews.apandts.Activity.FullImageActivity" />
+        <activity android:name="com.mananews.apandts.Activity.CategoriesActivity" />
+        <activity android:name="com.mananews.apandts.Activity.Search_Activity" />
+        <activity android:name="com.mananews.apandts.Activity.About_Us" />
+        <activity android:name="com.mananews.apandts.Activity.Privacy_Policy" />
+        <activity android:name="com.mananews.apandts.Activity.VideoPlayer_Activity" /> <!-- <activity android:name=".Activity.ImagePickerActivity" /> -->
+        <activity
+            android:name="com.mananews.apandts.Activity.Detail_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mananews.apandts.Activity.Loading_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mananews.apandts.Activity.MainActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mananews.apandts.Activity.SplashScreen_Activity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/noti_72" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/black" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.mananews.apandts.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"
+                tools:replace="android:resource" />
+        </provider>
+
+        <service
+            android:name="com.mananews.apandts.utils.MyFirebaseMessagingService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
+    </application>
+
+</manifest>

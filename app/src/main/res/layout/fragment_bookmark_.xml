@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/framlayoutB"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="Fragment.Bookmark_Fragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager2BookMark"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/lay_Bottom"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/tx_nodata"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/cerebrisans_regular"
+            android:gravity="center"
+            android:text="No bookmark added !"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/text_font_news_title"
+            android:visibility="visible" />
+
+        <RelativeLayout
+            android:id="@+id/lay_Bottom"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_above="@id/adView"
+
+            android:layout_gravity="bottom">
+
+            <RelativeLayout
+                android:id="@+id/layBottom2"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/lightgray"
+                android:gravity="center_vertical"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/img_DeletebookmarkB"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="4dp"
+                    android:layout_marginStart="0dp"
+                    android:padding="3dp"
+                    android:src="@drawable/ic_remove_bookmark" />
+
+                <ImageView
+                    android:id="@+id/imgComment"
+                    android:layout_toEndOf="@id/img_DeletebookmarkB"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:tint="@color/yellow"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_comment" />
+
+                <RelativeLayout
+                    android:id="@+id/lay_btnplay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/btn_playyB"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="bottom|end"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_play"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/btn_pauseB"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="bottom|end"
+                        android:layout_margin="3dp"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_pause"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            android:layout_alignParentBottom="true"
+            ads:adUnitId="@string/banner_id"/>
+
+
+    </RelativeLayout>
+
+</FrameLayout>

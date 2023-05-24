@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "573569132333",
+    "project_id": "telugu-now-599a5",
+    "storage_bucket": "telugu-now-599a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573569132333:android:92e11b49794529787e95a4",
+        "android_client_info": {
+          "package_name": "com.mananews.apandts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573569132333-imh3l967en1fdib6f9ju7pp74bnnnqrg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4lwysoKQTbxG8LjUOdFCGz0cwiA1xuYA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "573569132333-imh3l967en1fdib6f9ju7pp74bnnnqrg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

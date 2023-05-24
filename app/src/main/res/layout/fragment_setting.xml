@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameSetting"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkDray"
+    tools:context=".Fragment.SettingFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/lin_item"
+            android:layout_above="@id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/lin_LightMode"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/img_daynight"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_mode" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tx_lightmode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/cerebrisans_regular"
+                        android:gravity="center_vertical"
+                        android:text="Light Mode"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_font_news_title" />
+
+                    <TextView
+                        android:id="@+id/tx_lightmode2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/cerebrisan_light"
+                        android:gravity="center_vertical"
+                        android:text="For better readability at night"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_font_news_desc" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp">
+
+                    <ImageView
+                        android:id="@+id/theme_off"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_dark_off"
+                        android:visibility="visible" />
+
+                    <ImageView
+                        android:id="@+id/theme_on"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_dark_on"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/img_notification"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_notification" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tx_notification"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/cerebrisans_regular"
+                        android:gravity="center_vertical"
+                        android:text="Notifications"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_font_news_title" />
+
+                    <TextView
+                        android:id="@+id/tx_notification2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/cerebrisan_light"
+                        android:gravity="center_vertical"
+                        android:text="Manage Notification"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_font_news_desc" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end">
+
+                    <ImageView
+                        android:id="@+id/notification_off"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_dark_off"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/notification_on"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_dark_on"
+                        android:visibility="visible" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linProfile"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imhProfile"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_user"
+                    app:tint="@color/white" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tx_Profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/cerebrisans_regular"
+                        android:gravity="center_vertical"
+                        android:text="Profile"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_font_news_title" />
+
+                    <TextView
+                        android:id="@+id/tx_Profile2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/cerebrisan_light"
+                        android:gravity="center_vertical"
+                        android:text="Manage profile"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_font_news_desc" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgLogout"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_logout"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:id="@+id/tx_logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/cerebrisans_regular"
+                    android:gravity="center_vertical"
+                    android:text="Logout"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_font_news_title" />
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_id"/>
+    </RelativeLayout>
+
+</FrameLayout>
