@@ -85,7 +85,7 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
             final Model_News menuGetset = newsArrayList.get(position);
             String imagePath = activity.getString(R.string.server_url);
 
-            holder.txt_short_desc.setText(Html.fromHtml(newsArrayList.get(position).getShort_desc()));
+            holder.txt_short_desc.setText(Html.fromHtml("<b>"+newsArrayList.get(position).getShort_desc()+"<b>"));
             holder.txt_description.setText(Html.fromHtml(newsArrayList.get(position).getDescription()));
             String reference = menuGetset.getReference();
             String shortName = menuGetset.getShortname();

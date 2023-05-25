@@ -30,6 +30,15 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
+                        android:id="@+id/blurImageview2"
+                        android:layout_width="match_parent"
+                        android:layout_height="195dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/dummy_blur"
+                        android:transitionName="simple_activity_transition" />
+
+                    <ImageView
                         android:id="@+id/imageview2"
                         android:layout_width="match_parent"
                         android:layout_height="195dp"
@@ -242,6 +251,15 @@
                     android:id="@+id/layitem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/blurImageview"
+                        android:layout_width="match_parent"
+                        android:layout_height="195dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/dummy_blur"
+                        android:transitionName="simple_activity_transition" />
 
                     <ImageView
                         android:id="@+id/imageview"

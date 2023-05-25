@@ -247,11 +247,13 @@
                         android:fontFamily="@font/cerebrisans_regular"
                         android:gravity="start"
                         android:textColorHint="#7B7B7B"
+                        android:maxLength= "50"
                         android:textColor="@color/white"
                         android:hint="Enter long Description"
                         android:lineSpacingExtra="5dp"
                         android:padding="15dp"
                         android:textSize="19dp" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
