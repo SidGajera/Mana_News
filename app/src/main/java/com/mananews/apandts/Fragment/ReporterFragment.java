@@ -583,8 +583,7 @@ public class ReporterFragment extends Fragment implements ViewTreeObserver.OnGlo
         relay_Bott.setVisibility(View.GONE);
 
 
-        Log.e("-------------",SPmanager.getPreference(getActivity(),"userid"));
-        Log.e("-------------",SPmanager.getPreference(getActivity(),"userid"));
+//        Log.e("-------------",SPmanager.getPreference(getActivity(),"userid"));
 
         url = getString(R.string.server_url) + "webservices/reporter_detail.php?page=" + pageNo+"&reporter_id="+  SPmanager.getPreference(getActivity(),"userid")+"&pp="+10;
         Log.e(TAG, "getData: " + url);

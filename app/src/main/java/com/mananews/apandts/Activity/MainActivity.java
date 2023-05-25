@@ -42,6 +42,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -57,7 +58,7 @@ import com.mananews.apandts.utils.SPmanager;
 
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     private static final String CHANNEL_ID = "123";
     private static final String TAG = "Main--Actitivty---";
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtLatest, txtCategory, txtBookmark, txtSetting,txtReporter, txtShareApp;
     private TextView txtRateApp, txtOtherApp, txtPrivacy, txtAboutUs, txtMenu;
     private String newsid, title, message, image;
-
+    BottomNavigationView bottomNavigationView;
     public static String isSearch = "";
     public static String visibility = "";
     public static int counterAPI = 0, counter = 0;
@@ -86,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        bottomNavigationView = findViewById(R.id.bottonnav);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -227,7 +231,10 @@ public class MainActivity extends AppCompatActivity {
 
         Fragment fragment = new MainFragment();
         FragmentManager fragmentManager = ((MainActivity.this).getSupportFragmentManager());
-        fragmentManager.beginTransaction().replace(R.id.lay_container, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.relativelayout, fragment).commit();
+
+        loadFragment(new MainFragment());
+
 
         TabHost tabhost = findViewById(R.id.tabhost);
         tabhost.setup();
@@ -877,5 +884,49 @@ public class MainActivity extends AppCompatActivity {
         title_Setting.setVisibility(View.GONE);
         title_Reporter.setVisibility(View.GONE);
     }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Fragment fragment = null;
+        Intent intent = new Intent();
+        switch (item.getItemId()) {
+//            case R.id.nav_drawer:
+//                if (SPmanager.getPreference(getApplicationContext(),"role") != null && SPmanager.getPreference(getApplicationContext(),"role").equalsIgnoreCase("reporter")){
+//                    lay_reporter.setVisibility(View.VISIBLE);
+//                    title_Reporter.setText(SPmanager.getPreference(getApplicationContext(),"username"));
+//                }else {
+//                    lay_reporter.setVisibility(View.GONE);
+//                    title_Reporter.setText("Reporter");
+//                }
+//                drawerlayout.openDrawer(GravityCompat.START);
+//                break;
+            case R.id.nav_category:
+                intent = new Intent(MainActivity.this, CategoriesActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.dashbord:
+                fragment = new MainFragment();
+                break;
+            case R.id.users:
+                intent = new Intent(MainActivity.this, ReporterActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.profile:
+                intent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(intent);
+                break;
+        }
+        if (fragment != null) {
+            loadFragment(fragment);
+        }
+        return true;
+    }
 
+    void loadFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.relativelayout, fragment).commit();
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
+    }
 }
