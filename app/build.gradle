@@ -3,6 +3,11 @@ apply plugin: 'com.google.firebase.crashlytics'
 android {
     compileSdkVersion 33
     //buildToolsVersion "29.0.1"
+
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId "com.mananews.apandts"
         minSdkVersion 22
@@ -36,7 +41,7 @@ android {
 
 configurations {
     cleanedAnnotations
-    implementation.exclude group: 'org.jetbrains' , module:'annotations'
+    implementation.exclude group: 'org.jetbrains', module: 'annotations'
 }
 
 dependencies {
@@ -89,7 +94,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
 
 //    facebook audience
- //   implementation 'com.facebook.android:audience-network-sdk:5.7.0'
+    //   implementation 'com.facebook.android:audience-network-sdk:5.7.0'
 
 //    google analytics
     implementation 'com.google.firebase:firebase-analytics:18.0.3'

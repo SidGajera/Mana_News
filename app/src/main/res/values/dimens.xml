@@ -3,7 +3,7 @@
     <dimen name="text_font_splash_title">19sp</dimen>
     <dimen name="text_font_splash_subtitle">14sp</dimen>
     <dimen name="text_font_main_title">17sp</dimen>
-    <dimen name="text_font_news_title">15.5sp</dimen>
+    <dimen name="text_font_news_title">18dp</dimen>
     <dimen name="text_font_news_desc">14.5sp</dimen>
 
     <!-- 边距设置 -->

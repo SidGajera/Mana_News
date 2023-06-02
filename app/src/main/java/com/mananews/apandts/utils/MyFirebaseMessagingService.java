@@ -76,7 +76,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, str, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("Response", response);
+                Log.e("StatusModelClass", response);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONObject resp = jsonObject.getJSONObject("data");

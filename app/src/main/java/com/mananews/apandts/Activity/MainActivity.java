@@ -50,15 +50,17 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.mananews.apandts.Fragment.Bookmark_Fragment;
 import com.mananews.apandts.Fragment.CatListFragment;
+import com.mananews.apandts.Fragment.GalleryFragment;
 import com.mananews.apandts.Fragment.MainFragment;
 import com.mananews.apandts.Fragment.ReporterFragment;
 import com.mananews.apandts.Fragment.SettingFragment;
+import com.mananews.apandts.Fragment.StatusFragment;
 import com.mananews.apandts.R;
 import com.mananews.apandts.utils.SPmanager;
 
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private static final String CHANNEL_ID = "123";
     private static final String TAG = "Main--Actitivty---";
@@ -67,15 +69,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private boolean mSlideState = false;
     public static View lay_drawer;
     public TextToSpeech tts;
-    private TextView title_main, title_cat, title_bookmark, title_Setting,title_Reporter;
+    private TextView title_main, title_cat, title_bookmark, title_Setting, title_Reporter;
     private String msg;
     private FirebaseAnalytics mFirebaseAnalytics;
     public static String themeKEY;
     private RelativeLayout relay_drawer, relBottom, lay_container, relay_adview;
-    private LinearLayout lay_bookmark, lay_cat, lay_setting,lay_reporter, lay_share, lay_rate, lay_otherApp;
+    private LinearLayout lay_bookmark, lay_cat, lay_setting, lay_reporter, lay_share, lay_rate, lay_otherApp;
     private LinearLayout lay_privacy, lay_aboutUs, layMenuHeader, lay_latestNews, layBG, ll_ads;
-    private ImageView img_drawer, img_search, img_Add,img_pin, imgLatest, imgCategory, imgBookmarkmenu, imgSetting,imgReporter, imgShareApp, imgRateApp, imgOtherApp, imgPrivacy, imgAboutUs;
-    private TextView txtLatest, txtCategory, txtBookmark, txtSetting,txtReporter, txtShareApp;
+    private ImageView img_drawer, img_search, img_Add, img_pin, imgLatest, imgCategory, imgBookmarkmenu, imgSetting, imgReporter, imgShareApp, imgRateApp, imgOtherApp, imgPrivacy, imgAboutUs;
+    private TextView txtLatest, txtCategory, txtBookmark, txtSetting, txtReporter, txtShareApp;
     private TextView txtRateApp, txtOtherApp, txtPrivacy, txtAboutUs, txtMenu;
     private String newsid, title, message, image;
     BottomNavigationView bottomNavigationView;
@@ -109,32 +111,31 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
 
-                        if (!task.isSuccessful()) {
-                            Log.e(TAG, "getInstanceId failed", task.getException());
-                            msg = "Failed";
-                            return;
-                        }
+                if (!task.isSuccessful()) {
+                    Log.e(TAG, "getInstanceId failed", task.getException());
+                    msg = "Failed";
+                    return;
+                }
 
-                        String token = task.getResult().getToken();
-                        Log.e(TAG, "onComplete: " + token);
+                String token = task.getResult().getToken();
+                Log.e(TAG, "onComplete: " + token);
 
-                        Log.e(TAG, "onComplete: " + msg);
-                    }
-                });
+                Log.e(TAG, "onComplete: " + msg);
+            }
+        });
         init();
         setupDrawer();
         themeKEY = SPmanager.getPreference(MainActivity.this, "themeKEY");
         Log.e(TAG, "onCreate: " + themeKEY);
 
         if (themeKEY == null) {
-            if (getApplicationContext().getResources().getString(R.string.isLight).equalsIgnoreCase("1")){
+            if (getApplicationContext().getResources().getString(R.string.isLight).equalsIgnoreCase("1")) {
                 themeKEY = "1";
-            }else {
+            } else {
                 themeKEY = "0";
             }
         }
@@ -231,10 +232,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         Fragment fragment = new MainFragment();
         FragmentManager fragmentManager = ((MainActivity.this).getSupportFragmentManager());
-        fragmentManager.beginTransaction().replace(R.id.relativelayout, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.lay_container, fragment).commit();
 
-        loadFragment(new MainFragment());
+        Fragment statusfragment = new StatusFragment();
+        FragmentManager statusfragmentManager = ((MainActivity.this).getSupportFragmentManager());
+        statusfragmentManager.beginTransaction().replace(R.id.lay_status, statusfragment).commit();
 
+        Fragment galleryfragment = new GalleryFragment();
+        FragmentManager galleryfragmentManager = ((MainActivity.this).getSupportFragmentManager());
+        galleryfragmentManager.beginTransaction().replace(R.id.lay_status, galleryfragment).commit();
+
+        loadFragment(new MainFragment(), R.id.lay_container);
 
         TabHost tabhost = findViewById(R.id.tabhost);
         tabhost.setup();
@@ -268,8 +276,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             @Override
             public void onTabChanged(String tabId) {
 
-                Log.e(TAG, "onTabChanged: TabWidget count "+tabhost.getTabWidget().getChildCount());
-                Log.e(TAG, "onTabChanged: tabId "+tabId);
+                Log.e(TAG, "onTabChanged: TabWidget count " + tabhost.getTabWidget().getChildCount());
+                Log.e(TAG, "onTabChanged: tabId " + tabId);
 
                 switch (tabId) {
                     case "News": {
@@ -298,6 +306,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         tabhost.getTabWidget().getChildAt(2).setBackgroundColor(Color.parseColor("#000000")); // unselected
                         TextView tv2 = tabhost.getTabWidget().getChildAt(2).findViewById(android.R.id.title); //Unselected Tabs
                         tv2.setTextColor(Color.parseColor("#ffffff"));
+
+                        loadFragment(statusfragment, R.id.lay_status);
                         break;
                     }
                     case "Gallery": {
@@ -312,6 +322,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         tabhost.getTabWidget().getChildAt(2).setBackgroundColor(Color.parseColor("#ffffff")); // unselected
                         TextView tv = tabhost.getTabWidget().getChildAt(2).findViewById(android.R.id.title); //Unselected Tabs
                         tv.setTextColor(Color.parseColor("#000000"));
+
+                        loadFragment(new GalleryFragment(), R.id.lay_gallery);
+
                         break;
                     }
                 }
@@ -320,17 +333,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         get_Ads();
     }
-
-    private void trendingnews1() {
-        Fragment fragment = new MainFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("title", title);
-        fragment.setArguments(bundle);
-        FragmentManager fragmentManager = ((MainActivity.this).getSupportFragmentManager());
-        fragmentManager.beginTransaction().replace(R.id.lay_container, fragment).commit();
-
-    }
-
 
     private void get_Ads() {
 
@@ -551,15 +553,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         relay_drawer = findViewById(R.id.relay_drawer);
 
 
-
-    //  reporter@gmail.com
-
+        //  reporter@gmail.com
 
 
-        if (SPmanager.getPreference(getApplicationContext(),"role") != null && SPmanager.getPreference(getApplicationContext(),"role").equalsIgnoreCase("reporter")){
+        if (SPmanager.getPreference(getApplicationContext(), "role") != null && SPmanager.getPreference(getApplicationContext(), "role").equalsIgnoreCase("reporter")) {
             lay_reporter.setVisibility(View.VISIBLE);
-            title_Reporter.setText(SPmanager.getPreference(getApplicationContext(),"username"));
-        }else {
+            title_Reporter.setText(SPmanager.getPreference(getApplicationContext(), "username"));
+        } else {
             lay_reporter.setVisibility(View.GONE);
             title_Reporter.setText("Reporter");
 
@@ -658,10 +658,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         img_drawer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (SPmanager.getPreference(getApplicationContext(),"role") != null && SPmanager.getPreference(getApplicationContext(),"role").equalsIgnoreCase("reporter")){
+                if (SPmanager.getPreference(getApplicationContext(), "role") != null && SPmanager.getPreference(getApplicationContext(), "role").equalsIgnoreCase("reporter")) {
                     lay_reporter.setVisibility(View.VISIBLE);
-                    title_Reporter.setText(SPmanager.getPreference(getApplicationContext(),"username"));
-                }else {
+                    title_Reporter.setText(SPmanager.getPreference(getApplicationContext(), "username"));
+                } else {
                     lay_reporter.setVisibility(View.GONE);
                     title_Reporter.setText("Reporter");
 
@@ -733,8 +733,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 drawerlayout.closeDrawers();
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.sharing_text) + "\n" +
-                        "https://play.google.com/store/apps/details?id=" + getPackageName());
+                sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.sharing_text) + "\n" + "https://play.google.com/store/apps/details?id=" + getPackageName());
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
             }
@@ -744,12 +743,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             public void onClick(View view) {
                 drawerlayout.closeDrawers();
                 try {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName())));
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName())));
 
                 } catch (android.content.ActivityNotFoundException anfe) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
                 }
 
             }
@@ -884,6 +881,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         title_Setting.setVisibility(View.GONE);
         title_Reporter.setVisibility(View.GONE);
     }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
@@ -916,13 +914,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
         }
         if (fragment != null) {
-            loadFragment(fragment);
+            loadFragment(fragment, R.id.lay_container);
         }
         return true;
     }
 
-    void loadFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.relativelayout, fragment).commit();
+    void loadFragment(Fragment fragment, int id) {
+        getSupportFragmentManager().beginTransaction().replace(id, fragment).commit();
     }
 
     @Override

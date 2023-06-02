@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Environment;
 import android.text.Html;
@@ -86,6 +87,7 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
             String imagePath = activity.getString(R.string.server_url);
 
             holder.txt_short_desc.setText(Html.fromHtml("<b>"+newsArrayList.get(position).getShort_desc()+"<b>"));
+            holder.txt_short_desc.setTypeface(null, Typeface.BOLD);
             holder.txt_description.setText(Html.fromHtml(newsArrayList.get(position).getDescription()));
             String reference = menuGetset.getReference();
             String shortName = menuGetset.getShortname();

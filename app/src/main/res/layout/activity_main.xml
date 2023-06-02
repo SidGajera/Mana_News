@@ -17,63 +17,10 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="top"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-            <RelativeLayout
-                android:id="@+id/relativelayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/bottonnav"
-                android:padding="5dp">
-
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:itemBackground="@color/white"
-                android:background="#FFFFFF"
-                android:layout_alignParentBottom="true">
-
-                <ImageView
-                    android:id="@+id/img_drawer"
-                    android:layout_width="35dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_menu"
-                    app:tint="@color/darkDray" />
-
-                <com.google.android.material.bottomnavigation.BottomNavigationView
-                    android:id="@+id/bottonnav"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginEnd="0dp"
-                    app:itemBackground="@color/white"
-                    app:itemIconTint="@drawable/tab_selector"
-                    app:itemTextColor="@drawable/tab_selector"
-                    app:labelVisibilityMode="labeled"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:menu="@menu/bottom_nav" />
-
-            </LinearLayout>
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/relay_ads"
-            android:layout_below="@+id/lay_drawer"
+            android:layout_above="@+id/bottomBar"
             android:layout_marginTop="-1dp"
-            android:layout_marginBottom="0dp"
-            android:visibility="gone">
+            android:layout_marginBottom="50dp"
+            android:visibility="visible">
 
             <TabHost
                 android:id="@+id/tabhost"
@@ -123,15 +70,12 @@
                             android:background="#90ee90"
                             android:orientation="vertical">
 
-                            <!-- Text View for applying the text to the tab -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="270dp"
-                                android:text="Comming soon.."
-                                android:textColor="#000"
-                                android:textSize="32sp" />
+                            <RelativeLayout
+                                android:id="@+id/lay_status"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="-1dp"
+                                android:layout_marginBottom="0dp" />
                         </LinearLayout>
 
                         <!-- for tab 3 -->
@@ -143,18 +87,59 @@
                             android:orientation="vertical">
 
                             <!-- Text View for applying the text to the tab -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="270dp"
-                                android:text="Comming soon.."
-                                android:textColor="#000"
-                                android:textSize="32sp" />
+                            <RelativeLayout
+                                android:id="@+id/lay_gallery"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="-1dp"
+                                android:layout_marginBottom="0dp" />
                         </LinearLayout>
                     </FrameLayout>
                 </LinearLayout>
             </TabHost>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_above="@+id/bottomBar"
+                android:layout_alignParentBottom="true"
+                android:background="#FFFFFF"
+                app:itemBackground="@color/white">
+
+                <ImageView
+                    android:id="@+id/img_drawer"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_menu"
+                    app:tint="@color/darkDray" />
+
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/bottonnav"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    app:itemBackground="@color/white"
+                    app:itemIconTint="@drawable/tab_selector"
+                    app:itemTextColor="@drawable/tab_selector"
+                    app:labelVisibilityMode="labeled"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:menu="@menu/bottom_nav" />
+
+            </LinearLayout>
 
         </RelativeLayout>
 

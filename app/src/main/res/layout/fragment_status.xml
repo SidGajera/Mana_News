@@ -1,14 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/framlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.StatusFragment">
+    android:orientation="vertical"
+    tools:context=".Fragment.MainFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:id="@+id/relayMainFrag"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/tx_noData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/cerebrisans_regular"
+            android:gravity="center"
+            android:text="No Data Found !"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/text_font_news_title"
+            android:visibility="gone" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/swiperefresh_items"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager2Main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/relay_Bott"
+                android:orientation="vertical" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ProgressBar
+            android:id="@+id/mainProgress"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/yellow"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/mainProgress2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/darkDray"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 
 </FrameLayout>
