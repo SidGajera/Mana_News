@@ -7,9 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
@@ -18,12 +16,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,19 +32,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
 import com.mananews.apandts.Model_Class.Model_Cat;
 import com.mananews.apandts.Model_Class.ReporterModel;
 import com.mananews.apandts.R;
 import com.mananews.apandts.api.ApiService;
-import com.mananews.apandts.utils.CountingFileRequestBody;
+import com.mananews.apandts.utils.FileUtils;
 import com.mananews.apandts.utils.SPmanager;
 
 import org.json.JSONArray;
@@ -68,6 +65,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 public class ReporterActivity extends AppCompatActivity {
+    private static final int PERMISSION_REQUEST_CODE = 5;
     RadioButton radioVideo, radioImage;
     ArrayList<Model_Cat> catList = new ArrayList<>();
     CardView cardVV;
@@ -77,11 +75,8 @@ public class ReporterActivity extends AppCompatActivity {
     String catId = null;
     int i = 0;
     File VIDEO;
-    private static final int REQUEST_PERMISSIONS = 1234;
-    private static final String[] PERMISSIONS = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
+    //    private static final int REQUEST_PERMISSIONS = 1234;
+    private static final String[] PERMISSIONS = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     ApiService apiService;
     private ProgressDialog dialog;
     TextView tvCategory, tvTitle, tvTag, tvDescription, tvFullDescription, tvChooseFile;
@@ -89,13 +84,16 @@ public class ReporterActivity extends AppCompatActivity {
     VideoView vv;
     public static String themeKEY;
     Button btn;
-    private int GALLERY = 1;
+    private int GALLERY_VIDEO = 1;
     private int REQUEST_GET_SINGLE_FILE = 123;
     EditText etTitle, etTag, etDescription, etFullDescription;
     RelativeLayout rLayout, rlTop;
     LinearLayout lLayout, lSpinner;
     static String TAG = ReporterActivity.class.getName();
     Uri selectedImageUri;
+    private File image_file;
+    private String MEME_TYPE;
+    RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +103,7 @@ public class ReporterActivity extends AppCompatActivity {
         radioVideo = findViewById(R.id.radioVideo);
         radioImage = findViewById(R.id.radioImage);
         cardVV = findViewById(R.id.cardVV);
+        radioGroup = findViewById(R.id.rdGroup);
         mainProgress = findViewById(R.id.mainProgress);
         progressDark = findViewById(R.id.progressDark);
         spinner = findViewById(R.id.spinner);
@@ -188,50 +187,42 @@ public class ReporterActivity extends AppCompatActivity {
 
         dialog = new ProgressDialog(ReporterActivity.this);
         dialog.setMessage("Uploading...");
-        dialog.setIndeterminate(false);
-        dialog.setProgress(0);
-        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        dialog.setCancelable(false);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && isStoragePermissionGranted()) {
-                    requestPermissions(PERMISSIONS, REQUEST_PERMISSIONS);
+        btn.setOnClickListener(v -> imageUploadAPI());
+
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+
+            if (ContextCompat.checkSelfPermission(ReporterActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(ReporterActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(ReporterActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+            } else {
+                if (checkedId == R.id.radioVideo) {
+                    if (!radioImage.isChecked() && radioVideo.isChecked() && ContextCompat.checkSelfPermission(ReporterActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(ReporterActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        Log.d("FATZ", "Video Picker");
+                        cardVV.setVisibility(View.VISIBLE);
+                        vv.setVideoURI(null);
+                        vv.setVisibility(View.GONE);
+                        iv_image.setImageResource(0);
+                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                        intent.setType("video/*");
+                        startActivityForResult(intent, GALLERY_VIDEO);
+                    } else {
+                        ActivityCompat.requestPermissions(ReporterActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+                    }
                 } else {
-                    imageUploadAPI();
+                    if (!radioVideo.isChecked() && radioImage.isChecked() && ContextCompat.checkSelfPermission(ReporterActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(ReporterActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        Log.d("FATZ", "Image Picker");
+                        cardVV.setVisibility(View.GONE);
+                        iv_image.setImageResource(0);
+                        Intent intent = new Intent();
+                        intent.setType("image/*");
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_GET_SINGLE_FILE);
+                    } else {
+                        ActivityCompat.requestPermissions(ReporterActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+                    }
                 }
-            }
-        });
-
-        radioVideo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (radioVideo.isChecked()) {
-                    cardVV.setVisibility(View.VISIBLE);
-                    vv.setVideoURI(null);
-                    vv.setVisibility(View.GONE);
-                    iv_image.setImageResource(0);
-                    Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                            android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(galleryIntent, GALLERY);
-                }
-            }
-        });
-
-
-        radioImage.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (radioImage.isChecked()) {
-                    cardVV.setVisibility(View.GONE);
-                    iv_image.setImageResource(0);
-                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                    intent.addCategory(Intent.CATEGORY_OPENABLE);
-                    intent.setType("image/*");
-                    startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_GET_SINGLE_FILE);
-
-                }
-
             }
         });
 
@@ -285,12 +276,9 @@ public class ReporterActivity extends AppCompatActivity {
                     Log.e(TAG, "onResponse: " + e.getMessage());
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.getMessage();
-                Log.e(TAG, "onErrorResponse: " + error.getMessage());
-            }
+        }, error -> {
+            error.getMessage();
+            Log.e(TAG, "onErrorResponse: " + error.getMessage());
         });
         requestQueue.add(stringRequest);
 
@@ -313,56 +301,75 @@ public class ReporterActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            boolean allPermissionsGranted = true;
+            for (int grantResult : grantResults) {
+                if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                    allPermissionsGranted = false;
+                    break;
+                }
+            }
+            if (allPermissionsGranted) {
+            } else {
+                Toast.makeText(this, "Permissions denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GALLERY) {
-            Log.e(TAG, "GALLERY");
-            if (resultCode == RESULT_OK) {
 
-                selectedImageUri = data.getData();
-                String path = getPath(selectedImageUri);
-                if (path != null) {
-                    File f = new File(path);
-                    selectedImageUri = Uri.fromFile(f);
-                }
+        Log.d("FATZ", "Here: " + requestCode + " | " + resultCode + " | " + (data != null));
 
-                Log.e(TAG, path);
-                if (radioVideo.isChecked()) {
-                    vv.setVideoURI(selectedImageUri);
-                    vv.requestFocus();
-                    vv.start();
-                    vv.setVisibility(View.VISIBLE);
-                    assert path != null;
-                    VIDEO = new File(path);
-                }
+        if (requestCode == GALLERY_VIDEO && resultCode == RESULT_OK && data != null) {
+            Log.d("FATZ", "VIDEo Select");
 
-                iv_image.setVisibility(View.VISIBLE);
-                Glide.with(getApplicationContext())
-                        .load(selectedImageUri)
-                        .skipMemoryCache(false)
-                        .into(iv_image);
-            }
-        }
+            Uri uri = data.getData();
+            image_file = FileUtils.getFile(ReporterActivity.this, uri);
+            MEME_TYPE = FileUtils.getMimeTypeFromFileUri(this, uri);
 
-        Log.e(TAG, "resultCode ==>" + resultCode +
-                "+\n requestCode ==> " + requestCode +
-                "+\n getData ==> " + data.getData() +
-                "+\n selectedImageUri ==> " + selectedImageUri);
+//            selectedImageUri = data.getData();
+//            String path = getPath(selectedImageUri);
+//            if (path != null) {
+//                File f = new File(path);
+//                selectedImageUri = Uri.fromFile(f);
+//            }
+//
+//            Log.e(TAG, path);
+//            if (radioVideo.isChecked()) {
+//                vv.setVideoURI(selectedImageUri);
+//                vv.requestFocus();
+//                vv.start();
+//                vv.setVisibility(View.VISIBLE);
+//                assert path != null;
+//                VIDEO = new File(path);
+//            }
+//            iv_image.setVisibility(View.VISIBLE);
+//            Glide.with(getApplicationContext()).load(selectedImageUri).skipMemoryCache(false).into(iv_image);
+        } else if (requestCode == REQUEST_GET_SINGLE_FILE && resultCode == RESULT_OK) {
+            Log.d("FATZ", "Here Images");
+            Uri uri = data.getData();
+            image_file = FileUtils.getFile(ReporterActivity.this, uri);
+            MEME_TYPE = FileUtils.getMimeTypeFromFileUri(this, uri);
 
-        try {
-        } catch (Exception e) {
-            Log.e("FileSelectorActivity", "File select error", e);
+            Log.d("FATZ", "Selected File Path: " + image_file.getPath() + " | \n" + MEME_TYPE);
+        } else {
+            radioImage.setSelected(false);
+            radioVideo.setSelected(false);
         }
     }
 
-    private boolean isStoragePermissionGranted() {
-        for (String permissions : PERMISSIONS) {
-            if (ActivityCompat.checkSelfPermission(getApplicationContext(), permissions) != PackageManager.PERMISSION_GRANTED) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    private boolean isStoragePermissionGranted() {
+//        for (String permissions : PERMISSIONS) {
+//            if (ActivityCompat.checkSelfPermission(getApplicationContext(), permissions) != PackageManager.PERMISSION_GRANTED) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     public String getPath(Uri uri) {
         String[] projection = {MediaStore.Images.Media.DATA};
@@ -432,28 +439,7 @@ public class ReporterActivity extends AppCompatActivity {
 
 
     private void imageUploadAPI() {
-        File uploadFile = null;
-        try {
-            iv_image.invalidate();
-            Uri uri = null;
-            if (iv_image.getDrawable() != null) {
-                BitmapDrawable drawable = (BitmapDrawable) iv_image.getDrawable();
-                Bitmap bitmap = drawable.getBitmap();
-                uri = getImageUri(getApplicationContext(), bitmap);
-                uploadFile = getFile(getApplicationContext(), selectedImageUri);
-            }
-
-            Log.e(TAG, "IOException ==> \n" +
-                    "uri = " + uri +
-                    "uploadFile = " + uploadFile +
-                    "selectedImageUri = " + selectedImageUri);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Please select again", Toast.LENGTH_SHORT).show();
-            Log.e(TAG, "IOException ==> \n e = " + e.getMessage());
-        }
-        File uploadFileVideo = VIDEO;
+        System.setProperty("http.keepAlive", "false");
 
         if (catId == null) {
             Toast.makeText(getApplicationContext(), "Please select category!", Toast.LENGTH_SHORT).show();
@@ -465,56 +451,47 @@ public class ReporterActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Please description title!", Toast.LENGTH_SHORT).show();
         } else if (etFullDescription.getText().toString().length() == 0) {
             Toast.makeText(getApplicationContext(), "Please full-description title!", Toast.LENGTH_SHORT).show();
-        } else if (radioVideo.isChecked() && VIDEO == null) {
+        } else if (radioVideo.isChecked() && image_file == null) {
             Toast.makeText(getApplicationContext(), "Please select video!", Toast.LENGTH_SHORT).show();
-        } else if (uploadFile == null) {
-            Toast.makeText(getApplicationContext(), "Please select Video/Image!", Toast.LENGTH_SHORT).show();
+        } else if (image_file == null && radioImage.isSelected()) {
+            Toast.makeText(getApplicationContext(), "Please select Image!", Toast.LENGTH_SHORT).show();
+        } else if (image_file == null) {
+            Toast.makeText(getApplicationContext(), "Please select File!", Toast.LENGTH_SHORT).show();
         } else {
             if (SPmanager.isConnected(ReporterActivity.this)) {
                 MultipartBody.Builder builder = new MultipartBody.Builder();
                 builder.setType(MultipartBody.FORM);
                 String id = SPmanager.getPreference(getApplicationContext(), "userid");
-                builder.addFormDataPart("reporter_id", id);
-                builder.addFormDataPart("cat_id", catId);
                 builder.addFormDataPart("title", etTitle.getText().toString());
                 builder.addFormDataPart("tag", etTag.getText().toString());
+                builder.addFormDataPart("cat_id", catId);
+                builder.addFormDataPart("type", radioVideo.isChecked() ? "0" : "1");
                 builder.addFormDataPart("description", etDescription.getText().toString());
+                builder.addFormDataPart("reporter_id", id);
                 builder.addFormDataPart("long_description", etFullDescription.getText().toString());
-                builder.addFormDataPart("thumbnail", uploadFile.getName(), RequestBody.create(MediaType.parse("image/*"), uploadFile));
+                builder.addFormDataPart("thumbnail", image_file.getName(), RequestBody.create(MediaType.parse(MEME_TYPE), image_file));
+                builder.addFormDataPart("media", image_file.getName(), RequestBody.create(MediaType.parse(MEME_TYPE), image_file));
 
-                if (radioVideo.isChecked()) {
-                    builder.addFormDataPart("media", uploadFileVideo.getName(), RequestBody.create(MediaType.parse("video/*"), uploadFileVideo));
-                    builder.addFormDataPart("type", "0");
-                } else {
-                    builder.addFormDataPart("type", "1");
-                }
-
-                Log.e(TAG, "imageUploadAPI ==> try if \n " +
-                        "\n reporter_id ==>" + id +
-                        "\n catId ==>" + catId +
-                        "\n title ==>" + etTitle.getText().toString() +
-                        "\n tag ==>" + etTag.getText().toString() +
-                        "\n description ==>" + etDescription.getText().toString() +
-                        "\n long_description ==>" + etFullDescription.getText().toString());
+                Log.d("FATZ", " Meme: " + MEME_TYPE + " \n isVideo" + (radioVideo.isChecked()) + "\n Video: " + image_file.getPath());
+                Log.d("FATZ", "imageUploadAPI ==> try if \n " + "\n reporter_id ==>" + id + "\n catId ==>" + catId + "\n title ==>" + etTitle.getText().toString() + "\n tag ==>" + etTag.getText().toString() + "\n description ==>" + etDescription.getText().toString() + "\n long_description ==>" + etFullDescription.getText().toString());
 
                 MultipartBody requestBody = builder.build();
                 dialog.show();
-                CountingFileRequestBody requestBody1 = new CountingFileRequestBody(requestBody, "files", new CountingFileRequestBody.ProgressListener() {
-                    @Override
-                    public void transferred(String key, int num) {
-                        Log.e(TAG, "transferred ==> \n" + num + "    ");
-                        if (num == 100) {
-                        } else {
-                            i = num;
-                        }
-                        dialog.setProgress(i);
-                    }
-                });
 
-                Call<ReporterModel> call = apiService.imageUpload(requestBody1);
+//                CountingFileRequestBody requestBody1 = new CountingFileRequestBody(requestBody, "files", (key, num) -> {
+//                    Log.e(TAG, "transferred ==> \n" + num + "    ");
+//                    if (num == 100) {
+//                    } else {
+//                        i = num;
+//                    }
+//                    dialog.setProgress(i);
+//                });
+
+                Call<ReporterModel> call = apiService.imageUpload(requestBody);
                 call.enqueue(new Callback<ReporterModel>() {
                     @Override
                     public void onResponse(@NonNull Call<ReporterModel> call, @NonNull retrofit2.Response<ReporterModel> response) {
+                        image_file = null;
                         dialog.dismiss();
                         try {
                             if (response.isSuccessful()) {
@@ -522,7 +499,8 @@ public class ReporterActivity extends AppCompatActivity {
                                 dialog.dismiss();
 //                                JSONObject obj = new JSONObject(response.body().string());
 //                                String message = obj.getString("message");
-                                Log.e(TAG, "imageUploadAPI ==> try if \n" + "message");
+                                assert response.body() != null;
+                                Log.d("FATZ", "Upload Success: " + response.body().getMessage());
                                 vv.setVideoURI(null);
                                 VIDEO = null;
                                 iv_image.setImageResource(0);
@@ -533,18 +511,21 @@ public class ReporterActivity extends AppCompatActivity {
                                 etDescription.setText("");
                                 etFullDescription.setText("");
                                 startActivity(new Intent(ReporterActivity.this, MainActivity.class));
+                                finish();
 //                                Log.w(TAG,"onResponse ==> \n"+ new GsonBuilder().setPrettyPrinting().create().toJson(response));
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Log.e(TAG, "imageUploadAPI ==> catch \n" + e.toString());
+                            Log.d("FATZ", "imageUploadAPI ==> catch \n" + e.toString());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ReporterModel> call, Throwable t) {
                         dialog.dismiss();
-                        Log.e(TAG, "imageUploadAPI ==> onFailure getMessage \n" + t.getMessage());
+                        image_file = null;
+                        i = 0;
+                        Log.d("FATZ", "imageUploadAPI ==> onFailure getMessage \n" + t.getMessage());
 //                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });

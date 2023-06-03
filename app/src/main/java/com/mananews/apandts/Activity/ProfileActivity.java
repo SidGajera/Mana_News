@@ -79,7 +79,6 @@ public class ProfileActivity extends AppCompatActivity {
     AdView mAdView;
     boolean isLogin = false;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

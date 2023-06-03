@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.mananews.apandts.Adapter.GalleryCircleAdapter;
 import com.mananews.apandts.Adapter.ViewPagerStatusAdapter;
 import com.mananews.apandts.Model_Class.Model_News;
 import com.mananews.apandts.Model_Class.StatusModel.Example;
@@ -162,6 +163,12 @@ public class GalleryFragment extends Fragment implements ViewTreeObserver.OnGlob
                         viewPagerAdapter = new ViewPagerStatusAdapter(getActivity(), response.body().getResponse().getData());
                         binding.viewPager2Main.setAdapter(viewPagerAdapter);
                         binding.viewPager2Main.setPageTransformer(new DepthTransformation());
+                        binding.rv.setAdapter(new GalleryCircleAdapter(getActivity(), response.body().getResponse().getData(), new GalleryCircleAdapter.onClick() {
+                            @Override
+                            public void onClickItem(int pos) {
+                                binding.viewPager2Main.canScrollVertically(pos);
+                            }
+                        }));
 
                     } else {
                         Toast.makeText(getActivity(), "Some thing went wrong", Toast.LENGTH_SHORT).show();

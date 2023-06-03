@@ -113,8 +113,6 @@ public class Search_Activity extends AppCompatActivity implements SearchView.OnQ
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-
-
         getSupportActionBar().hide();
         statusBarColor();
         init();

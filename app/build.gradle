@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.firebase.crashlytics'
 android {
-    compileSdkVersion 33
+    compileSdkVersion 31
     //buildToolsVersion "29.0.1"
 
     buildFeatures {
@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId "com.mananews.apandts"
         minSdkVersion 22
-        targetSdkVersion 33
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
