@@ -24,7 +24,7 @@ public class GalleryCircleAdapter extends RecyclerView.Adapter<GalleryCircleAdap
     onClick click;
 
     public interface onClick {
-        void onClickItem(int pos);
+        void onClickItem(String image, int pos);
     }
 
     public GalleryCircleAdapter(Activity activity, ArrayList<Datum> imageList, onClick c) {
@@ -45,13 +45,13 @@ public class GalleryCircleAdapter extends RecyclerView.Adapter<GalleryCircleAdap
         final Datum item = newsArrayList.get(position);
         String imagePath = activity.getString(R.string.server_url);
         String image = item.getImage().split("\\.\\.")[1];
-        Log.d("FATZ", "Image: " + imagePath + image);
+        Log.e("FATZ", "Image: " + imagePath + image);
         Glide.with(activity).load(imagePath + image).placeholder(Color.WHITE).into(holder.binding.profile);
 
         holder.binding.profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                click.onClickItem(position);
+                click.onClickItem(imagePath + image, position);
             }
         });
     }

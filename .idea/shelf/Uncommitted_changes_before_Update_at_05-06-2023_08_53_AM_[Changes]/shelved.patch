@@ -1,0 +1,183 @@
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>apply plugin: 'com.android.application'\r\napply plugin: 'com.google.firebase.crashlytics'\r\nandroid {\r\n    compileSdkVersion 33\r\n    //buildToolsVersion \"29.0.1\"\r\n\r\n    buildFeatures {\r\n        viewBinding = true\r\n    }\r\n\r\n    defaultConfig {\r\n        applicationId \"com.mananews.apandts\"\r\n        minSdkVersion 22\r\n        targetSdkVersion 33\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    dexOptions {\r\n        javaMaxHeapSize \"4G\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility = '1.8'\r\n        targetCompatibility = '1.8'\r\n    }\r\n    lintOptions {\r\n        checkReleaseBuilds false\r\n        // Or, if you prefer, you can continue to check for errors in release builds,\r\n        // but continue the build even when errors are found:\r\n        abortOnError false\r\n    }\r\n}\r\n\r\nconfigurations {\r\n    cleanedAnnotations\r\n    implementation.exclude group: 'org.jetbrains', module: 'annotations'\r\n}\r\n\r\ndependencies {\r\n    implementation fileTree(dir: 'libs', include: ['*.jar'])\r\n    implementation 'androidx.appcompat:appcompat:1.1.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'\r\n    implementation 'androidx.legacy:legacy-support-v4:1.0.0'\r\n    implementation 'com.google.android.gms:play-services-maps:17.0.0'\r\n    testImplementation 'junit:junit:4.12'\r\n    androidTestImplementation 'androidx.test:runner:1.2.0'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'\r\n//    implementation project(path: ':library')\r\n\r\n    //noinspection GradleCompatible\r\n\r\n    implementation 'androidx.cardview:cardview:1.0.0'\r\n    implementation 'com.github.bumptech.glide:glide:4.11.0'\r\n    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'\r\n    implementation 'org.jetbrains:annotations-java5:15.0'\r\n\r\n//    volly\r\n    implementation 'com.android.volley:volley:1.1.1'\r\n    implementation 'com.google.code.gson:gson:2.4'\r\n\r\n//    sqlite\r\n    implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'\r\n\r\n//    networking\r\n    implementation 'com.amitshekhar.android:android-networking:1.0.2'\r\n\r\n//    ads\r\n    implementation 'com.google.android.gms:play-services-ads:20.1.0'\r\n\r\n    //  implementation 'com.google.android.gms:play-services-ads:19.0.0'\r\n\r\n//    youtube player\r\n    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:8.0.1'\r\n\r\n//    firebase language detection\r\n    implementation 'com.google.firebase:firebase-ml-natural-language:22.0.0'\r\n    implementation 'com.google.firebase:firebase-ml-natural-language-language-id-model:20.0.7'\r\n\r\n//    firebase messaging\r\n    implementation 'com.google.firebase:firebase-messaging:23.0.6'\r\n    implementation 'com.google.firebase:firebase-core:21.1.0'\r\n    implementation \"com.google.firebase:firebase-iid:21.1.0\"\r\n\r\n\r\n//    material\r\n    implementation 'com.google.android.material:material:1.1.0'\r\n\r\n//    facebook audience\r\n    //   implementation 'com.facebook.android:audience-network-sdk:5.7.0'\r\n\r\n//    google analytics\r\n    implementation 'com.google.firebase:firebase-analytics:18.0.3'\r\n\r\n//    crashlytics\r\n    implementation 'com.google.firebase:firebase-crashlytics:17.2.2'\r\n    implementation 'com.github.chrisbanes:PhotoView:2.3.0'\r\n\r\n//  viewpager 2\r\n    implementation 'androidx.viewpager2:viewpager2:1.0.0-alpha01'\r\n    implementation 'com.wajahatkarim3.easyflipviewpager:easyflipviewpager:2.0.0'\r\n    implementation 'de.hdodenhof:circleimageview:3.1.0'\r\n    implementation 'androidx.work:work-runtime:2.7.1'\r\n\r\n    //Api retrofit\r\n    implementation 'com.squareup.retrofit2:retrofit:2.9.0'\r\n    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'\r\n    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'\r\n    implementation 'com.squareup.okhttp3:okhttp:4.2.2'\r\n    implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.12.1'\r\n    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'\r\n    implementation 'io.reactivex.rxjava2:rxjava:2.2.14'\r\n    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'\r\n    implementation 'com.github.wseemann:FFmpegMediaMetadataRetriever-core:1.0.16'\r\n\r\n    implementation 'org.jetbrains:annotations-java5:15.0'\r\n\r\n\r\n}\r\n\r\napply plugin: 'com.google.gms.google-services'\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle b/app/build.gradle
+--- a/app/build.gradle	(revision 03bceab7ba8a55da8ae716453e7d77a7d27408b5)
++++ b/app/build.gradle	(date 1685789734400)
+@@ -119,10 +119,7 @@
+     implementation 'io.reactivex.rxjava2:rxjava:2.2.14'
+     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+     implementation 'com.github.wseemann:FFmpegMediaMetadataRetriever-core:1.0.16'
+-
+     implementation 'org.jetbrains:annotations-java5:15.0'
+-
+-
+ }
+ 
+ apply plugin: 'com.google.gms.google-services'
+Index: app/src/main/res/layout/fragment_cat_list.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<FrameLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:layout_marginTop=\"10dp\"\r\n    tools:context=\".Fragment.CatListFragment\">\r\n\r\n    <!-- TODO: Update blank fragment layout -->\r\n\r\n    <RelativeLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\">\r\n\r\n        <ListView\r\n            android:id=\"@+id/cat_ListView\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"\r\n            android:layout_marginTop=\"0dp\"\r\n            android:layout_above=\"@id/adView\"\r\n            android:layout_marginBottom=\"-1dp\"\r\n            android:divider=\"@null\"\r\n            android:dividerHeight=\"0dp\" />\r\n\r\n        <ProgressBar\r\n            android:id=\"@+id/mainProgress\"\r\n            android:layout_width=\"50dp\"\r\n            android:layout_height=\"50dp\"\r\n            android:layout_centerInParent=\"true\"\r\n            android:layout_gravity=\"center\"\r\n            android:indeterminateTint=\"@color/yellow\"\r\n            android:visibility=\"gone\" />\r\n\r\n        <ProgressBar\r\n            android:id=\"@+id/progressDark\"\r\n            android:layout_width=\"50dp\"\r\n            android:layout_height=\"50dp\"\r\n            android:layout_centerInParent=\"true\"\r\n            android:layout_gravity=\"center\"\r\n            android:indeterminateTint=\"@color/darkDray\"\r\n            android:visibility=\"gone\" />\r\n\r\n        <com.google.android.gms.ads.AdView\r\n            xmlns:ads=\"http://schemas.android.com/apk/res-auto\"\r\n            android:id=\"@+id/adView\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_alignParentBottom=\"true\"\r\n            ads:adSize=\"BANNER\"\r\n            ads:adUnitId=\"@string/banner_id\"/>\r\n\r\n    </RelativeLayout>\r\n\r\n\r\n</FrameLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_cat_list.xml b/app/src/main/res/layout/fragment_cat_list.xml
+--- a/app/src/main/res/layout/fragment_cat_list.xml	(revision 03bceab7ba8a55da8ae716453e7d77a7d27408b5)
++++ b/app/src/main/res/layout/fragment_cat_list.xml	(date 1685788086454)
+@@ -16,8 +16,8 @@
+             android:id="@+id/cat_ListView"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+-            android:layout_marginTop="0dp"
+             android:layout_above="@id/adView"
++            android:layout_marginTop="0dp"
+             android:layout_marginBottom="-1dp"
+             android:divider="@null"
+             android:dividerHeight="0dp" />
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>buildscript {\r\n    repositories {\r\n        google()\r\n        jcenter()\r\n    }\r\n    dependencies {\r\n        classpath \"com.android.tools.build:gradle:4.1.3\"\r\n        classpath 'com.google.gms:google-services:4.3.5'\r\n        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.1'\r\n        // NOTE: Do not place your application dependencies here; they belong\r\n        // in the individual module build.gradle files\r\n    }\r\n}\r\n\r\nallprojects {\r\n    repositories {\r\n        google()\r\n        jcenter()\r\n        maven { url \"https://jitpack.io\" }\r\n    }\r\n}\r\n\r\ntask clean(type: Delete) {\r\n    delete rootProject.buildDir\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build.gradle b/build.gradle
+--- a/build.gradle	(revision 03bceab7ba8a55da8ae716453e7d77a7d27408b5)
++++ b/build.gradle	(date 1685786722905)
+@@ -1,12 +1,12 @@
+ buildscript {
+     repositories {
+-        google()
+         jcenter()
++        google()
+     }
+     dependencies {
+         classpath "com.android.tools.build:gradle:4.1.3"
+-        classpath 'com.google.gms:google-services:4.3.5'
+-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.1'
++        classpath 'com.google.gms:google-services:4.3.15'
++        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.5'
+         // NOTE: Do not place your application dependencies here; they belong
+         // in the individual module build.gradle files
+     }
+@@ -14,8 +14,8 @@
+ 
+ allprojects {
+     repositories {
+-        google()
+         jcenter()
++        google()
+         maven { url "https://jitpack.io" }
+     }
+ }
+Index: .gitignore
+===================================================================
+diff --git a/.gitignore b/.gitignore
+deleted file mode 100644
+--- a/.gitignore	(revision 03bceab7ba8a55da8ae716453e7d77a7d27408b5)
++++ /dev/null	(revision 03bceab7ba8a55da8ae716453e7d77a7d27408b5)
+@@ -1,13 +0,0 @@
+-*.iml
+-.gradle
+-/local.properties
+-/.idea/caches
+-/.idea/libraries
+-/.idea/modules.xml
+-/.idea/workspace.xml
+-/.idea/navEditor.xml
+-/.idea/assetWizardSettings.xml
+-.DS_Store
+-/build
+-/captures
+-.externalNativeBuild
+Index: app/release/output-metadata.json
+===================================================================
+diff --git a/app/release/output-metadata.json b/app/release/output-metadata.json
+deleted file mode 100644
+--- a/app/release/output-metadata.json	(revision 03bceab7ba8a55da8ae716453e7d77a7d27408b5)
++++ /dev/null	(revision 03bceab7ba8a55da8ae716453e7d77a7d27408b5)
+@@ -1,18 +0,0 @@
+-{
+-  "version": 2,
+-  "artifactType": {
+-    "type": "APK",
+-    "kind": "Directory"
+-  },
+-  "applicationId": "com.mananews.apandts",
+-  "variantName": "processReleaseResources",
+-  "elements": [
+-    {
+-      "type": "SINGLE",
+-      "filters": [],
+-      "versionCode": 1,
+-      "versionName": "1.0",
+-      "outputFile": "app-release.apk"
+-    }
+-  ]
+-}
+\ No newline at end of file
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"GRADLE\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"Embedded JDK\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision 03bceab7ba8a55da8ae716453e7d77a7d27408b5)
++++ b/.idea/gradle.xml	(date 1685935349917)
+@@ -1,13 +1,11 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="GradleMigrationSettings" migrationVersion="1" />
+   <component name="GradleSettings">
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
+         <option name="testRunner" value="GRADLE" />
+         <option name="distributionType" value="DEFAULT_WRAPPED" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+-        <option name="gradleJvm" value="Embedded JDK" />
+         <option name="modules">
+           <set>
+             <option value="$PROJECT_DIR$" />
+Index: local.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/local.properties b/local.properties
+new file mode 100644
+--- /dev/null	(date 1685786723814)
++++ b/local.properties	(date 1685786723814)
+@@ -0,0 +1,8 @@
++## This file must *NOT* be checked into Version Control Systems,
++# as it contains information specific to your local configuration.
++#
++# Location of the SDK. This is only used by Gradle.
++# For customization when using a Version Control System, please read the
++# header note.
++#Sat Jun 03 15:35:23 IST 2023
++sdk.dir=C\:\\Users\\i5\\AppData\\Local\\Android\\Sdk
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"..\\:/AndroidStudioProjects/Android/Client Apps/Mana_News/app/src/main/res/layout/fragment_main.xml\" value=\"0.17249240121580547\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"11\" project-jdk-type=\"JavaSDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 03bceab7ba8a55da8ae716453e7d77a7d27408b5)
++++ b/.idea/misc.xml	(date 1685788086780)
+@@ -3,6 +3,7 @@
+   <component name="DesignSurface">
+     <option name="filePathToZoomLevelMap">
+       <map>
++        <entry key="..\:/AndroidStudioProjects/Android/Client Apps/Mana_News/app/src/main/res/layout/fragment_cat_list.xml" value="0.17249240121580547" />
+         <entry key="..\:/AndroidStudioProjects/Android/Client Apps/Mana_News/app/src/main/res/layout/fragment_main.xml" value="0.17249240121580547" />
+       </map>
+     </option>

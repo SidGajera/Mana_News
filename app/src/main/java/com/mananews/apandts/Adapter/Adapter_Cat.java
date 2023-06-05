@@ -66,7 +66,7 @@ public class Adapter_Cat extends BaseAdapter {
         String path = "uploads/category-image/";
         String fullPath = activity.getString(R.string.server_url) + path;
 
-        Log.d("hhhhh", "getView: " + fullPath);
+        Log.e("hhhhh", "getView: " + fullPath);
 
         Glide.with(activity).load(fullPath + catList.get(i).getCatImg()).into(img_cat);
         Animation animFadeIn = AnimationUtils.loadAnimation(activity, R.anim.fade_in);

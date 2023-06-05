@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         bottomNavigationView = findViewById(R.id.bottonnav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
@@ -123,7 +122,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                 String token = task.getResult().getToken();
                 Log.e(TAG, "onComplete: " + token);
-
                 Log.e(TAG, "onComplete: " + msg);
             }
         });

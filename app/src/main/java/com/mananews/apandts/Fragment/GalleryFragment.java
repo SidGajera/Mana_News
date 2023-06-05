@@ -18,6 +18,7 @@ import com.mananews.apandts.Adapter.GalleryCircleAdapter;
 import com.mananews.apandts.Adapter.ViewPagerStatusAdapter;
 import com.mananews.apandts.Model_Class.Model_News;
 import com.mananews.apandts.Model_Class.StatusModel.Example;
+import com.mananews.apandts.OnItemClickListner;
 import com.mananews.apandts.api.ApiService;
 import com.mananews.apandts.databinding.FragmentGalleryBinding;
 import com.mananews.apandts.utils.DepthTransformation;
@@ -33,7 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GalleryFragment extends Fragment implements ViewTreeObserver.OnGlobalLayoutListener {
 
-    private static final String TAG = "FATZ";
+    private static final String TAG = GalleryFragment.class.getName();
     private int pageNo = 1;
     ArrayList<Model_News> imageList = new ArrayList<>();
     private TextToSpeech tts;
@@ -55,9 +56,6 @@ public class GalleryFragment extends Fragment implements ViewTreeObserver.OnGlob
 
         getPreferenceData();
         init();
-        Log.d(TAG, "ON create");
-
-
         getData();
 
         return binding.getRoot();
@@ -102,7 +100,7 @@ public class GalleryFragment extends Fragment implements ViewTreeObserver.OnGlob
 //                    if (position == imageList.size() - 1 && (int) positionOffset == 0 /*&& !isLastPageSwiped*/) {
 //                        if (counterPageScroll != 0) {
 //                            pageNo = pageNo + 1;
-//                            Log.d(TAG, "Load More");
+//                            Log.e(TAG, "Load More");
 //                        }
 //                        counterPageScroll++;
 //                    } else {
@@ -150,23 +148,31 @@ public class GalleryFragment extends Fragment implements ViewTreeObserver.OnGlob
 
         ApiService statusservice = retrofit.create(ApiService.class);
 
-        Log.d(TAG, "11");
+        Log.e(TAG, "11");
         statusservice.getStatusService("1", "1").enqueue(new Callback<Example>() {
             @Override
             public void onResponse(Call<Example> call, retrofit2.Response<Example> response) {
                 binding.mainProgress.setVisibility(View.GONE);
                 binding.swiperefreshItems.setRefreshing(false);
-                Log.d(TAG, "22: " + response.code());
+                Log.e(TAG, "onResponse: " + response.code());
                 if (response.isSuccessful()) {
                     if (response.code() == 200) {
-                        Log.d(TAG, "Data: " + response.body().getCurrentPage());
-                        viewPagerAdapter = new ViewPagerStatusAdapter(getActivity(), response.body().getResponse().getData());
+                        Log.e(TAG, "Data: " + response.body().getCurrentPage());
+                        viewPagerAdapter = new ViewPagerStatusAdapter(getActivity(), response.body().getResponse().getData(), new OnItemClickListner<Object>() {
+                            @Override
+                            public void onItemClick(String image, int position) {
+                                Log.e(TAG, "onItemClick: image => "+image + "pos = " + position);
+                            }
+                        });
+                        Log.e(TAG, "onItemCount: ItemCount => "+viewPagerAdapter.getItemCount());
                         binding.viewPager2Main.setAdapter(viewPagerAdapter);
                         binding.viewPager2Main.setPageTransformer(new DepthTransformation());
                         binding.rv.setAdapter(new GalleryCircleAdapter(getActivity(), response.body().getResponse().getData(), new GalleryCircleAdapter.onClick() {
                             @Override
-                            public void onClickItem(int pos) {
-                                binding.viewPager2Main.canScrollVertically(pos);
+                            public void onClickItem(String image, int pos) {
+//                                binding.viewPager2Main.canScrollVertically(pos);
+                                binding.viewPager2Main.setCurrentItem(pos);
+                                Log.e(TAG, "onItemClick: image => "+image + "pos = " + pos);
                             }
                         }));
 
@@ -178,7 +184,7 @@ public class GalleryFragment extends Fragment implements ViewTreeObserver.OnGlob
 
             @Override
             public void onFailure(Call<Example> call, Throwable t) {
-                Log.d(TAG, "OnFailer");
+                Log.e(TAG, "OnFailer");
                 binding.swiperefreshItems.setRefreshing(false);
                 binding.mainProgress.setVisibility(View.GONE);
             }

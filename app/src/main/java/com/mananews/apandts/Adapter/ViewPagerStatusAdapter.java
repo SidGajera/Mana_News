@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Color;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.mananews.apandts.Model_Class.StatusModel.Datum;
+import com.mananews.apandts.OnItemClickListner;
 import com.mananews.apandts.R;
 import com.mananews.apandts.databinding.ItemStatusCellBinding;
 
@@ -20,10 +22,12 @@ public class ViewPagerStatusAdapter extends RecyclerView.Adapter<ViewPagerStatus
 
     public Activity activity;
     ArrayList<Datum> newsArrayList;
+    private OnItemClickListner onItemClickListners;
 
-    public ViewPagerStatusAdapter(Activity activity, ArrayList<Datum> imageList) {
+    public ViewPagerStatusAdapter(Activity activity, ArrayList<Datum> imageList, OnItemClickListner onItemClickListner) {
         this.activity = activity;
         this.newsArrayList = imageList;
+        this.onItemClickListners = onItemClickListner;
     }
 
     @NonNull
@@ -38,9 +42,15 @@ public class ViewPagerStatusAdapter extends RecyclerView.Adapter<ViewPagerStatus
         final Datum item = newsArrayList.get(position);
         String imagePath = activity.getString(R.string.server_url);
         String image = item.getImage().split("\\.\\.")[1];
-        Log.d("FATZ", "Image: " + imagePath + image);
+        Log.e("FATZ", "Image: " + imagePath + image);
         Glide.with(activity).load(imagePath + image).placeholder(Color.WHITE).into(holder.binding.imageview);
         holder.binding.txtDescription.setText(item.getName());
+        holder.binding.imageview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListners.onItemClick(imagePath + image, position);
+            }
+        });
     }
 
     @Override

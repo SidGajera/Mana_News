@@ -108,7 +108,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             if (notificationVisibility.equals("yes")) {
 //        below from firebase ...
                 if (remoteMessage.getNotification() != null) {
-                    Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+                    Log.e(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
 //            showNotificationMessage(getApplicationContext(), remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
                 }
 //      below from admin ...
@@ -130,7 +130,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         } else {
             if (SettingFragment.nKEY.equals("yes")) {
                 if (remoteMessage.getNotification() != null) {
-                    Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+                    Log.e(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
 //            showNotificationMessage(getApplicationContext(), remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
                 }
 //      below from admin ...

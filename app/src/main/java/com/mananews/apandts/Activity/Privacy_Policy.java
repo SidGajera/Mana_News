@@ -205,7 +205,7 @@ public class Privacy_Policy extends AppCompatActivity {
             MainActivity.counter = 0;
             mInterstitialAd.show(Privacy_Policy.this);
         } else {
-            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+            Log.e("TAG", "The interstitial ad wasn't ready yet.");
         }
 
     }
@@ -226,7 +226,7 @@ public class Privacy_Policy extends AppCompatActivity {
                             @Override
                             public void onAdDismissedFullScreenContent() {
                                 // Called when fullscreen content is dismissed.
-                                Log.d("TAG", "The ad was dismissed.");
+                                Log.e("TAG", "The ad was dismissed.");
 //                        loadAd();
                                 MainActivity.counter = 0;
                                 onBackPressed();
@@ -235,7 +235,7 @@ public class Privacy_Policy extends AppCompatActivity {
                             @Override
                             public void onAdFailedToShowFullScreenContent(AdError adError) {
                                 // Called when fullscreen content failed to show.
-                                Log.d("TAG", "The ad failed to show.");
+                                Log.e("TAG", "The ad failed to show.");
                             }
 
                             @Override
@@ -244,7 +244,7 @@ public class Privacy_Policy extends AppCompatActivity {
                                 // Make sure to set your reference to null so you don't
                                 // show it a second time.
                                 mInterstitialAd = null;
-                                Log.d("TAG", "The ad was shown.");
+                                Log.e("TAG", "The ad was shown.");
                             }
                         });
                     }

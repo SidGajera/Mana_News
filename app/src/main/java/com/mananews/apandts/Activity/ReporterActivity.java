@@ -199,7 +199,7 @@ public class ReporterActivity extends AppCompatActivity {
             } else {
                 if (checkedId == R.id.radioVideo) {
                     if (!radioImage.isChecked() && radioVideo.isChecked() && ContextCompat.checkSelfPermission(ReporterActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(ReporterActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                        Log.d("FATZ", "Video Picker");
+                        Log.e("FATZ", "Video Picker");
                         cardVV.setVisibility(View.VISIBLE);
                         vv.setVideoURI(null);
                         vv.setVisibility(View.GONE);
@@ -212,7 +212,7 @@ public class ReporterActivity extends AppCompatActivity {
                     }
                 } else {
                     if (!radioVideo.isChecked() && radioImage.isChecked() && ContextCompat.checkSelfPermission(ReporterActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(ReporterActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                        Log.d("FATZ", "Image Picker");
+                        Log.e("FATZ", "Image Picker");
                         cardVV.setVisibility(View.GONE);
                         iv_image.setImageResource(0);
                         Intent intent = new Intent();
@@ -322,10 +322,10 @@ public class ReporterActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.d("FATZ", "Here: " + requestCode + " | " + resultCode + " | " + (data != null));
+        Log.e("FATZ", "Here: " + requestCode + " | " + resultCode + " | " + (data != null));
 
         if (requestCode == GALLERY_VIDEO && resultCode == RESULT_OK && data != null) {
-            Log.d("FATZ", "VIDEo Select");
+            Log.e("FATZ", "VIDEo Select");
 
             Uri uri = data.getData();
             image_file = FileUtils.getFile(ReporterActivity.this, uri);
@@ -350,12 +350,12 @@ public class ReporterActivity extends AppCompatActivity {
 //            iv_image.setVisibility(View.VISIBLE);
 //            Glide.with(getApplicationContext()).load(selectedImageUri).skipMemoryCache(false).into(iv_image);
         } else if (requestCode == REQUEST_GET_SINGLE_FILE && resultCode == RESULT_OK) {
-            Log.d("FATZ", "Here Images");
+            Log.e("FATZ", "Here Images");
             Uri uri = data.getData();
             image_file = FileUtils.getFile(ReporterActivity.this, uri);
             MEME_TYPE = FileUtils.getMimeTypeFromFileUri(this, uri);
 
-            Log.d("FATZ", "Selected File Path: " + image_file.getPath() + " | \n" + MEME_TYPE);
+            Log.e("FATZ", "Selected File Path: " + image_file.getPath() + " | \n" + MEME_TYPE);
         } else {
             radioImage.setSelected(false);
             radioVideo.setSelected(false);
@@ -472,8 +472,8 @@ public class ReporterActivity extends AppCompatActivity {
                 builder.addFormDataPart("thumbnail", image_file.getName(), RequestBody.create(MediaType.parse(MEME_TYPE), image_file));
                 builder.addFormDataPart("media", image_file.getName(), RequestBody.create(MediaType.parse(MEME_TYPE), image_file));
 
-                Log.d("FATZ", " Meme: " + MEME_TYPE + " \n isVideo" + (radioVideo.isChecked()) + "\n Video: " + image_file.getPath());
-                Log.d("FATZ", "imageUploadAPI ==> try if \n " + "\n reporter_id ==>" + id + "\n catId ==>" + catId + "\n title ==>" + etTitle.getText().toString() + "\n tag ==>" + etTag.getText().toString() + "\n description ==>" + etDescription.getText().toString() + "\n long_description ==>" + etFullDescription.getText().toString());
+                Log.e("FATZ", " Meme: " + MEME_TYPE + " \n isVideo" + (radioVideo.isChecked()) + "\n Video: " + image_file.getPath());
+                Log.e("FATZ", "imageUploadAPI ==> try if \n " + "\n reporter_id ==>" + id + "\n catId ==>" + catId + "\n title ==>" + etTitle.getText().toString() + "\n tag ==>" + etTag.getText().toString() + "\n description ==>" + etDescription.getText().toString() + "\n long_description ==>" + etFullDescription.getText().toString());
 
                 MultipartBody requestBody = builder.build();
                 dialog.show();
@@ -500,7 +500,7 @@ public class ReporterActivity extends AppCompatActivity {
 //                                JSONObject obj = new JSONObject(response.body().string());
 //                                String message = obj.getString("message");
                                 assert response.body() != null;
-                                Log.d("FATZ", "Upload Success: " + response.body().getMessage());
+                                Log.e("FATZ", "Upload Success: " + response.body().getMessage());
                                 vv.setVideoURI(null);
                                 VIDEO = null;
                                 iv_image.setImageResource(0);
@@ -516,7 +516,7 @@ public class ReporterActivity extends AppCompatActivity {
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Log.d("FATZ", "imageUploadAPI ==> catch \n" + e.toString());
+                            Log.e("FATZ", "imageUploadAPI ==> catch \n" + e.toString());
                         }
                     }
 
@@ -525,7 +525,7 @@ public class ReporterActivity extends AppCompatActivity {
                         dialog.dismiss();
                         image_file = null;
                         i = 0;
-                        Log.d("FATZ", "imageUploadAPI ==> onFailure getMessage \n" + t.getMessage());
+                        Log.e("FATZ", "imageUploadAPI ==> onFailure getMessage \n" + t.getMessage());
 //                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
