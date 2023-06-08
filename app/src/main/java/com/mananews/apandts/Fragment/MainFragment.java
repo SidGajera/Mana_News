@@ -2,6 +2,7 @@ package com.mananews.apandts.Fragment;
 
 import static android.speech.tts.TextToSpeech.QUEUE_ADD;
 
+import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -27,6 +28,7 @@ import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -46,6 +48,7 @@ import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage;
 import com.google.firebase.ml.naturallanguage.languageid.FirebaseLanguageIdentification;
 import com.mananews.apandts.Activity.CommentActivity;
 import com.mananews.apandts.Activity.MainActivity;
+import com.mananews.apandts.Activity.ReporterActivity;
 import com.mananews.apandts.Adapter.ViewPagerAdapter;
 import com.mananews.apandts.Model_Class.Model_News;
 import com.mananews.apandts.R;
@@ -60,6 +63,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -71,7 +75,7 @@ public class MainFragment extends Fragment implements ViewTreeObserver.OnGlobalL
     private int pageNo = 1, pos;
     public static int noOfrecords = 10;
     ArrayList<Model_News> imageList = new ArrayList<>();
-    private ImageView btn_play, btn_pause, img_Addbookmark, img_Deletebookmark, imgComment,trendingnews;
+    private ImageView btn_play, btn_pause, img_Addbookmark, img_Deletebookmark, imgComment, trendingnews;
     private TextToSpeech tts;
     private int counterPageScroll;
     private RelativeLayout lay_btnplay, layBookmark, relayMainFrag, relay_Bott;
@@ -88,7 +92,8 @@ public class MainFragment extends Fragment implements ViewTreeObserver.OnGlobalL
     private String username, email, password;
     private FrameLayout frameLayout;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private String  title;
+    private String title;
+
     public MainFragment() {
         // Required empty public constructor
     }
@@ -173,7 +178,7 @@ public class MainFragment extends Fragment implements ViewTreeObserver.OnGlobalL
             @Override
             public void onRefresh() {
                 getData();
-                if(mSwipeRefreshLayout.isRefreshing()) {
+                if (mSwipeRefreshLayout.isRefreshing()) {
                     mSwipeRefreshLayout.setRefreshing(false);
                 }
 

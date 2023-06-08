@@ -149,14 +149,14 @@ public class ProfileActivity extends AppCompatActivity {
         edtEmail.setFocusable(false);
         edtEmail.setEnabled(false);
 
-       try {
+        try {
             String userName = edtName.getText().toString();
             strFirstChar = userName.substring(0, 1).toUpperCase();
 
             if (profilePic != null) {
                 imgProfile.setVisibility(View.VISIBLE);
                 txtImgProfile.setVisibility(View.GONE);
-                Glide.with(getApplicationContext()).load(getResources().getString(R.string.server_url)+"uploads/user_image/"+ profilePic ).into(imgProfile);
+                Glide.with(getApplicationContext()).load(getResources().getString(R.string.server_url) + "uploads/user_image/" + profilePic).into(imgProfile);
             } else {
                 txtImgProfile.setVisibility(View.VISIBLE);
                 imgProfile.setVisibility(View.GONE);
@@ -178,19 +178,19 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                    if (isLogin) {
-                        if (isStoragePermissionGranted()) {
-                            selectImage();
-                        } else {
-                            Toast.makeText(ProfileActivity.this, "Allow permission", Toast.LENGTH_SHORT).show();
-                        }
-
+                if (isLogin) {
+                    if (isStoragePermissionGranted()) {
+                        selectImage();
                     } else {
-                        Toast.makeText(ProfileActivity.this, "First register your account", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
+                        Toast.makeText(ProfileActivity.this, "Allow permission", Toast.LENGTH_SHORT).show();
                     }
+
+                } else {
+                    Toast.makeText(ProfileActivity.this, "First register your account", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
 
             }
         });
@@ -355,7 +355,7 @@ public class ProfileActivity extends AppCompatActivity {
                             Log.e("---", profile);
                             Log.e("---", profile);
 
-                          //  String profile = object.getString("profile");
+                            //  String profile = object.getString("profile");
 
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
@@ -363,7 +363,7 @@ public class ProfileActivity extends AppCompatActivity {
                                     if (status.equals("200")) {
                                         SPmanager.saveValue(ProfileActivity.this, "profilePic", profile);
                                         profilePic = SPmanager.getPreference(ProfileActivity.this, "profilePic");
-                                        Glide.with(getApplicationContext()).load(getResources().getString(R.string.server_url)+"uploads/user_image/"+ profilePic ).into(imgProfile);
+                                        Glide.with(getApplicationContext()).load(getResources().getString(R.string.server_url) + "uploads/user_image/" + profilePic).into(imgProfile);
 
 
                                         Toast.makeText(ProfileActivity.this, "Your profile successfully uploaded.", Toast.LENGTH_LONG).show();
@@ -498,14 +498,14 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private boolean isStoragePermissionGranted() {
-
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED) {
                 return true;
             } else {
                 ActivityCompat.requestPermissions(ProfileActivity.this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 return false;
             }
         } else {
@@ -582,11 +582,11 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if (MainActivity.visibility.equalsIgnoreCase("1")){
-            if (MainActivity.counterAPI == MainActivity.counter){
+        if (MainActivity.visibility.equalsIgnoreCase("1")) {
+            if (MainActivity.counterAPI == MainActivity.counter) {
                 loadAd();
-            }else {
-                if ((MainActivity.counterAPI + 1 ) < MainActivity.counter){
+            } else {
+                if ((MainActivity.counterAPI + 1) < MainActivity.counter) {
                     MainActivity.counter = 1;
                 }
             }
@@ -605,6 +605,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
     }
+
     private void loadAd() {
         AdRequest adRequest = new AdRequest.Builder().build();
 
