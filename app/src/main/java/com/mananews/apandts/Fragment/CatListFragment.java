@@ -191,7 +191,6 @@ public class CatListFragment extends Fragment {
             cat_ListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
                     Intent intent = new Intent(getActivity(), CategoriesActivity.class);
                     intent.putExtra("cat_id", catList.get(i).getCat_id());
                     intent.putExtra("cat_name", catList.get(i).getCategory_name());

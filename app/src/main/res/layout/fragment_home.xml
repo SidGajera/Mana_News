@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.HomeFragment">
+
+    <RelativeLayout
+        android:id="@+id/rl_nav"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomBar"
+        android:layout_marginTop="-1dp"
+        android:visibility="visible">
+
+        <TabHost
+            android:id="@+id/tabhost"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!-- Tab widget to select the tab -->
+                <TabWidget
+                    android:id="@android:id/tabs"
+                    style="@style/MyTabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+
+                <!-- FrameLayout which contains the data of the activity -->
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <!-- for tab 1 -->
+                    <LinearLayout
+                        android:id="@+id/tab_news"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#FFFFFF"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/lay_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="-1dp"
+                            android:layout_marginBottom="0dp" />
+
+                    </LinearLayout>
+
+                    <!-- for tab 2 -->
+                    <LinearLayout
+                        android:id="@+id/tab_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#90ee90"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/lay_status"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="-1dp"
+                            android:layout_marginBottom="0dp" />
+                    </LinearLayout>
+
+                    <!-- for tab 3 -->
+                    <LinearLayout
+                        android:id="@+id/tab_gallery"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#add8e6"
+                        android:orientation="vertical">
+
+                        <!-- Text View for applying the text to the tab -->
+                        <RelativeLayout
+                            android:id="@+id/lay_gallery"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="-1dp"
+                            android:layout_marginBottom="0dp" />
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+        </TabHost>
+
+    </RelativeLayout>
+
+
+</FrameLayout>

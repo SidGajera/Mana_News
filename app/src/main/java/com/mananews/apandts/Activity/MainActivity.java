@@ -54,6 +54,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.mananews.apandts.Fragment.Bookmark_Fragment;
 import com.mananews.apandts.Fragment.CatListFragment;
 import com.mananews.apandts.Fragment.GalleryFragment;
+import com.mananews.apandts.Fragment.HomeFragment;
 import com.mananews.apandts.Fragment.MainFragment;
 import com.mananews.apandts.Fragment.ReporterFragment;
 import com.mananews.apandts.Fragment.SettingFragment;
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private String msg;
     private FirebaseAnalytics mFirebaseAnalytics;
     public static String themeKEY;
-    private RelativeLayout relay_drawer, relBottom, lay_container, relay_adview;
+    private RelativeLayout relay_drawer, relBottom, relay_adview;
     private LinearLayout lay_bookmark, lay_cat, lay_setting, lay_reporter, lay_share, lay_rate, lay_otherApp;
     private LinearLayout lay_privacy, lay_aboutUs, layMenuHeader, lay_latestNews, layBG, ll_ads;
     private ImageView img_drawer, img_search, img_Add, img_pin, imgLatest, imgCategory, imgBookmarkmenu, imgSetting, imgReporter, imgShareApp, imgRateApp, imgOtherApp, imgPrivacy, imgAboutUs;
@@ -131,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         init();
         setupDrawer();
         isStoragePermissionGranted();
-        
+
         themeKEY = SPmanager.getPreference(MainActivity.this, "themeKEY");
         Log.e(TAG, "onCreate: " + themeKEY);
 
@@ -232,108 +233,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             imgAboutUs.setColorFilter(ContextCompat.getColor(this, R.color.yellow), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         }
-
-        Fragment fragment = new MainFragment();
-        FragmentManager fragmentManager = ((MainActivity.this).getSupportFragmentManager());
-        fragmentManager.beginTransaction().replace(R.id.lay_container, fragment).commit();
-
-        Fragment statusfragment = new StatusFragment();
-        FragmentManager statusfragmentManager = ((MainActivity.this).getSupportFragmentManager());
-        statusfragmentManager.beginTransaction().replace(R.id.lay_status, statusfragment).commit();
-
-        Fragment galleryfragment = new GalleryFragment();
-        FragmentManager galleryfragmentManager = ((MainActivity.this).getSupportFragmentManager());
-        galleryfragmentManager.beginTransaction().replace(R.id.lay_status, galleryfragment).commit();
-
-        loadFragment(new MainFragment(), R.id.lay_container);
-
-        TabHost tabhost = findViewById(R.id.tabhost);
-        tabhost.setup();
-
-        TabHost.TabSpec spec = tabhost.newTabSpec("News");
-        spec.setContent(R.id.tab_news);
-        spec.setIndicator("News");
-        tabhost.addTab(spec);
-
-        spec = tabhost.newTabSpec("Status");
-        spec.setContent(R.id.tab_status);
-        spec.setIndicator("Status");
-        tabhost.addTab(spec);
-
-        spec = tabhost.newTabSpec("Gallery");
-        spec.setContent(R.id.tab_gallery);
-        spec.setIndicator("Gallery");
-        tabhost.addTab(spec);
-
-        for (int i = 0; i < tabhost.getTabWidget().getChildCount(); i++) {
-            tabhost.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor("#000000")); // unselected
-            TextView tv = tabhost.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
-            tv.setTextColor(Color.parseColor("#ffffff"));
-        }
-
-        tabhost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#ffffff")); // selected
-        TextView tv = tabhost.getTabWidget().getChildAt(0).findViewById(android.R.id.title); //for Selected Tab
-        tv.setTextColor(Color.parseColor("#000000"));
-
-        tabhost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
-            @Override
-            public void onTabChanged(String tabId) {
-
-                Log.e(TAG, "onTabChanged: TabWidget count " + tabhost.getTabWidget().getChildCount());
-                Log.e(TAG, "onTabChanged: tabId " + tabId);
-
-                switch (tabId) {
-                    case "News": {
-                        tabhost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#ffffff")); // unselected
-                        TextView tv = tabhost.getTabWidget().getChildAt(0).findViewById(android.R.id.title); //Unselected Tabs
-                        tv.setTextColor(Color.parseColor("#000000"));
-
-                        tabhost.getTabWidget().getChildAt(1).setBackgroundColor(Color.parseColor("#000000")); // unselected
-                        TextView tv1 = tabhost.getTabWidget().getChildAt(1).findViewById(android.R.id.title); //Unselected Tabs
-                        tv1.setTextColor(Color.parseColor("#ffffff"));
-
-                        tabhost.getTabWidget().getChildAt(2).setBackgroundColor(Color.parseColor("#000000")); // unselected
-                        TextView tv2 = tabhost.getTabWidget().getChildAt(2).findViewById(android.R.id.title); //Unselected Tabs
-                        tv2.setTextColor(Color.parseColor("#ffffff"));
-                        break;
-                    }
-                    case "Status": {
-                        tabhost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#000000")); // unselected
-                        TextView tv1 = tabhost.getTabWidget().getChildAt(0).findViewById(android.R.id.title); //Unselected Tabs
-                        tv1.setTextColor(Color.parseColor("#ffffff"));
-
-                        tabhost.getTabWidget().getChildAt(1).setBackgroundColor(Color.parseColor("#ffffff")); // unselected
-                        TextView tv = tabhost.getTabWidget().getChildAt(1).findViewById(android.R.id.title); //Unselected Tabs
-                        tv.setTextColor(Color.parseColor("#000000"));
-
-                        tabhost.getTabWidget().getChildAt(2).setBackgroundColor(Color.parseColor("#000000")); // unselected
-                        TextView tv2 = tabhost.getTabWidget().getChildAt(2).findViewById(android.R.id.title); //Unselected Tabs
-                        tv2.setTextColor(Color.parseColor("#ffffff"));
-
-                        loadFragment(statusfragment, R.id.lay_status);
-                        break;
-                    }
-                    case "Gallery": {
-                        tabhost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#000000")); // unselected
-                        TextView tv1 = tabhost.getTabWidget().getChildAt(0).findViewById(android.R.id.title); //Unselected Tabs
-                        tv1.setTextColor(Color.parseColor("#ffffff"));
-
-                        tabhost.getTabWidget().getChildAt(1).setBackgroundColor(Color.parseColor("#000000")); // unselected
-                        TextView tv2 = tabhost.getTabWidget().getChildAt(1).findViewById(android.R.id.title); //Unselected Tabs
-                        tv2.setTextColor(Color.parseColor("#ffffff"));
-
-                        tabhost.getTabWidget().getChildAt(2).setBackgroundColor(Color.parseColor("#ffffff")); // unselected
-                        TextView tv = tabhost.getTabWidget().getChildAt(2).findViewById(android.R.id.title); //Unselected Tabs
-                        tv.setTextColor(Color.parseColor("#000000"));
-
-                        loadFragment(new GalleryFragment(), R.id.lay_gallery);
-
-                        break;
-                    }
-                }
-            }
-        });
-
+        loadFragment(new HomeFragment(), R.id.rl_nav);
         get_Ads();
     }
 
@@ -409,7 +309,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
 //        exitApp();
 
-        Fragment myFragment = getSupportFragmentManager().findFragmentById(R.id.lay_container);
+        Fragment myFragment = getSupportFragmentManager().findFragmentById(R.id.rl_nav);
         if (myFragment != null && myFragment instanceof MainFragment) {
             exitApp();
         } else {
@@ -428,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 FragmentManager manager = getSupportFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
                 MainFragment homeFragment = MainFragment.newInstance();
-                transaction.replace(R.id.lay_container, homeFragment, "Home");
+                transaction.replace(R.id.rl_nav, homeFragment, "Home");
                 transaction.commit();
             }
         }
@@ -521,7 +421,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         drawerlayout = findViewById(R.id.drawerlayout);
         img_drawer = findViewById(R.id.img_drawer);
         lay_drawer = findViewById(R.id.lay_drawer);
-        lay_container = findViewById(R.id.lay_container);
         lay_latestNews = findViewById(R.id.l_latestNews);
         relBottom = findViewById(R.id.relBottom);
         title_main = findViewById(R.id.title_main);
@@ -592,7 +491,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 drawerlayout.closeDrawers();
                 Fragment fragment = new SettingFragment();
                 FragmentManager fragmentManager = ((MainActivity.this).getSupportFragmentManager());
-                fragmentManager.beginTransaction().replace(R.id.lay_container, fragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.rl_nav, fragment).commit();
                 title_Setting.setVisibility(View.VISIBLE);
                 title_Reporter.setVisibility(View.GONE);
                 title_main.setVisibility(View.GONE);
@@ -620,7 +519,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 drawerlayout.closeDrawers();
                 Fragment fragment = new ReporterFragment();
                 FragmentManager fragmentManager = ((MainActivity.this).getSupportFragmentManager());
-                fragmentManager.beginTransaction().replace(R.id.lay_container, fragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.rl_nav, fragment).commit();
                 title_Setting.setVisibility(View.GONE);
                 title_Reporter.setVisibility(View.VISIBLE);
                 title_main.setVisibility(View.GONE);
@@ -652,7 +551,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 bundle.putString("title", title);
                 fragment.setArguments(bundle);
                 FragmentManager fragmentManager = ((MainActivity.this).getSupportFragmentManager());
-                fragmentManager.beginTransaction().replace(R.id.lay_container, fragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.rl_nav, fragment).commit();
 
                 title_main.setVisibility(View.VISIBLE);
                 img_search.setVisibility(View.VISIBLE);
@@ -698,7 +597,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                 Fragment fragment = new Bookmark_Fragment();
                 FragmentManager fragmentManager = ((MainActivity.this).getSupportFragmentManager());
-                fragmentManager.beginTransaction().replace(R.id.lay_container, fragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.rl_nav, fragment).commit();
                 title_main.setVisibility(View.GONE);
                 title_bookmark.setVisibility(View.VISIBLE);
                 img_search.setVisibility(View.GONE);
@@ -725,7 +624,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 drawerlayout.closeDrawers();
                 Fragment fragment = new CatListFragment();
                 FragmentManager fragmentManager = ((MainActivity.this).getSupportFragmentManager());
-                fragmentManager.beginTransaction().replace(R.id.lay_container, fragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.rl_nav, fragment).commit();
                 title_cat.setVisibility(View.VISIBLE);
                 img_search.setVisibility(View.GONE);
                 img_Add.setVisibility(View.GONE);
@@ -916,24 +815,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 //                }
 //                drawerlayout.openDrawer(GravityCompat.START);
 //                break;
-            case R.id.nav_category:
-                intent = new Intent(MainActivity.this, CategoriesActivity.class);
-                startActivity(intent);
+            case R.id.tab_category:
+                fragment = new CatListFragment();
                 break;
-            case R.id.dashbord:
-                fragment = new MainFragment();
+            case R.id.tab_home:
+                fragment = new HomeFragment();
                 break;
-            case R.id.users:
+            case R.id.tab_add_user:
                 intent = new Intent(MainActivity.this, ReporterActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.profile:
+            case R.id.tab_profile:
                 intent = new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(intent);
                 break;
         }
         if (fragment != null) {
-            loadFragment(fragment, R.id.lay_container);
+            loadFragment(fragment, R.id.rl_nav);
         }
         return true;
     }

@@ -190,7 +190,16 @@ public class ReporterActivity extends AppCompatActivity {
         dialog.setCancelable(false);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-        btn.setOnClickListener(v -> imageUploadAPI());
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(SPmanager.getPreference(getApplicationContext(), "userid") != null){
+                    imageUploadAPI();
+                }else {
+                    Toast.makeText(ReporterActivity.this, "Login Required", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
 

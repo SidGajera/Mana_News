@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title="News"
-        android:id="@+id/dashbord"
+        android:title="Home"
+        android:id="@+id/tab_home"
         android:icon="@drawable/ic_home"/>
 
     <item
         android:title="Category"
-        android:id="@+id/nav_category"
+        android:id="@+id/tab_category"
         android:icon="@drawable/ic_category"/>
 
     <item
         android:title="Add News"
-        android:id="@+id/users"
+        android:id="@+id/tab_add_user"
         android:icon="@drawable/ic_add"/>
     <item
         android:title="Profile"
-        android:id="@+id/profile"
+        android:id="@+id/tab_profile"
         android:icon="@drawable/ic_profile"/>
 </menu>

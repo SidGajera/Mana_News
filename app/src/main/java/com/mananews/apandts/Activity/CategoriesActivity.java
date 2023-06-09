@@ -63,7 +63,7 @@ import java.util.Locale;
 
 public class CategoriesActivity extends AppCompatActivity {
 
-    private static final String TAG = "CategoriesActivity";
+    private static final String TAG = CategoriesActivity.class.getName();
     private ProgressBar mainProgress, mainProgressC2;
     private String cat_id, cat_name, long_desc, ad_type, bann_ads, visibility;
     private ImageView imgBack, btn_playC, btn_pauseC, img_AddbookmarkC, img_DeletebookmarkC, imgComment;
@@ -91,7 +91,6 @@ public class CategoriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
         getSupportActionBar().hide();
-
 
         statusBarColor();
         getIntents();

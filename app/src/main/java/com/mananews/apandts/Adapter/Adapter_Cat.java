@@ -59,14 +59,15 @@ public class Adapter_Cat extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
 
         view = inflater.inflate(R.layout.item_cat, viewGroup, false);
-        ImageView img_cat = (ImageView) view.findViewById(R.id.img_category);
-        ImageView imgNext = (ImageView) view.findViewById(R.id.imgNext);
-        TextView txt_catName = (TextView) view.findViewById(R.id.txt_catName);
+        ImageView img_cat = view.findViewById(R.id.img_category);
+        ImageView imgNext = view.findViewById(R.id.imgNext);
+        TextView txt_catName = view.findViewById(R.id.txt_catName);
 
         String path = "uploads/category-image/";
         String fullPath = activity.getString(R.string.server_url) + path;
 
-        Log.e("hhhhh", "getView: " + fullPath);
+        Log.e(TAG, "getView: " + fullPath);
+        Log.e(TAG, "getView: Image_url ==> " + fullPath + catList.get(i).getCatImg());
 
         Glide.with(activity).load(fullPath + catList.get(i).getCatImg()).into(img_cat);
         Animation animFadeIn = AnimationUtils.loadAnimation(activity, R.anim.fade_in);
